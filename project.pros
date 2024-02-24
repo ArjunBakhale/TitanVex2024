@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "El Primo",
+    "project_name": "currymunchvex",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -330,6 +330,8 @@
         "version": "4.8.0"
       }
     },
-    "upload_options": {}
+    "upload_options": {
+      "slot": 1
+    }
   }
 }

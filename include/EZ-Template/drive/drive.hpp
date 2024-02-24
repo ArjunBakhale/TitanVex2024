@@ -22,7 +22,6 @@ class Drive {
    * Joysticks will return 0 when they are within this number.  Set with set_joystick_threshold()
    */
   int JOYSTICK_THRESHOLD;
-
   /**
    * Global current brake mode.
    */

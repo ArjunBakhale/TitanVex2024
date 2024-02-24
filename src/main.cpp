@@ -5,11 +5,11 @@
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {-19, -18, -17}
+  {12, 13, 14}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{12, 13, 14}
+  ,{-19, -18, -17}
 
   // IMU Port
   ,19
@@ -157,6 +157,7 @@ bool latch2 = false;
 bool intakeSpin = false;
 bool wing_toggle = true;
 bool wing2_toggle = true;
+bool drive_inverse = false;
 
 void opcontrol() {
   // This is preference to what you like to drive on.
@@ -172,10 +173,10 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
-    if ((master.get_digital(DIGITAL_L1))) {
+    if ((master.get_digital(DIGITAL_R1))) {
       Intake.move_velocity(200);
     }
-    else if (master.get_digital(DIGITAL_R1)) {
+    else if (master.get_digital(DIGITAL_R2)) {
       Intake.move_velocity(-200);
     }
     else {
@@ -196,7 +197,7 @@ void opcontrol() {
     
     if (toggle2) {
       Slapper.move_velocity(200);
-      Slapper2.move_velocity(200);
+      Slapper2.move_velocity(-200);
     }
     else 
     {
@@ -204,7 +205,12 @@ void opcontrol() {
       Slapper2.move_velocity(0);
     }
 
-    if (master.get_digital(DIGITAL_X)) {
+    if (master.get_digital_new_press(DIGITAL_DOWN)){
+      drive_inverse = !drive_inverse;
+      //chassis.set_drive_inverse(drive_inverse);
+    }
+
+    if (master.get_digital(DIGITAL_UP)) {
       if (!latch2)
       {
         toggle2 = !toggle2;
