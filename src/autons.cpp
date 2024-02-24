@@ -15,7 +15,6 @@ const int TURN_SPEED  = 90;
 const int SWING_SPEED = 90;
 
 
-
 ///
 // Constants
 ///
