@@ -89,29 +89,33 @@ void drive_example() {
 void auton_skills() {
   // The first parameter is target degrees
   // The second parameter is max speed the robot will drive at
-  chassis.set_drive_pid(18, DRIVE_SPEED, false); //12
-  chassis.wait_drive();
-  
-  chassis.set_turn_pid(-60, TURN_SPEED);
-  chassis.wait_drive();
-  
-  wings.set_value(true);
-  
-  chassis.set_max_speed(0);
-  
-  Slapper.move_velocity(100);
-  Slapper2.move_velocity(200);
-  pros::delay(27000);
-  while (true) {
-    if (limitSwitch.get_value())
-    {
-      Slapper.move_velocity(0);
-      Slapper2.move_velocity(0);
-      break;
-    }
-  }
-  wings.set_value(false);
-  pros::delay(500);
+  chassis.set_drive_pid(18, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive(); // Wait for the drive PID controller to reach its target
+
+  chassis.set_turn_pid(-60, TURN_SPEED); // Set the turn PID controller's target to -60 degrees at TURN_SPEED
+  chassis.wait_drive(); // Wait for the turn PID controller to reach its target
+
+  wings.set_value(true); // Activate the wings
+
+  chassis.set_max_speed(0); // Set the maximum speed of the chassis to 0
+
+  Slapper.move_velocity(200); // Set the Slapper's velocity to 200
+  Slapper2.move_velocity(200); // Set the Slapper2's velocity to 200
+  pros::delay(27000); // Wait for 27000 milliseconds
+
+  // while (true) { // Start an infinite loop
+  //   if (limitSwitch.get_value()) // If the limit switch is pressed
+  //   {
+  //     Slapper.move_velocity(0); // Stop the Slapper
+  //     Slapper2.move_velocity(0); // Stop the Slapper2
+  //     break; // Exit the loop
+  //   }
+  // }
+
+  wings.set_value(false); // Deactivate the wings
+  pros::delay(500); // Wait for 500 milliseconds
+
+  // The following lines are similar to the above, but with different targets and speeds for the PID controllers
   chassis.set_turn_pid(178, TURN_SPEED);
   chassis.wait_drive();
   chassis.set_drive_pid(22, DRIVE_SPEED, true);
@@ -127,10 +131,12 @@ void auton_skills() {
   chassis.set_swing_pid(RIGHT_SWING, 45, SWING_SPEED);
   chassis.wait_drive();
 
-  chassis.set_mode(ez::DISABLE);
-  chassis.set_tank(127, 127);
-  pros::delay(1500);
-  chassis.set_tank(0,0);
+  chassis.set_mode(ez::DISABLE); // Disable the chassis's control mode
+  chassis.set_tank(127, 127); // Set the tank drive's left and right speeds to 127
+  pros::delay(1500); // Wait for 1500 milliseconds
+  chassis.set_tank(0,0); // Stop the tank drive
+
+  // The following lines are similar to the above, but with different targets and speeds for the PID controllers
   chassis.set_drive_pid(-9, DRIVE_SPEED, false);
   chassis.wait_drive();
   chassis.set_turn_pid(-45, TURN_SPEED);
@@ -139,12 +145,17 @@ void auton_skills() {
   chassis.wait_drive();
   chassis.set_swing_pid(LEFT_SWING, 128, SWING_SPEED);
   chassis.wait_drive();
-  wings.set_value(true);
-  chassis.set_mode(ez::DISABLE);
-  chassis.set_tank(127, 127);
-  pros::delay(3500);
-  chassis.set_tank(0,0);
-  wings.set_value(false);
+
+  wings.set_value(true); // Activate the wings
+
+  chassis.set_mode(ez::DISABLE); // Disable the chassis's control mode
+  chassis.set_tank(127, 127); // Set the tank drive's left and right speeds to 127
+  pros::delay(3500); // Wait for 3500 milliseconds
+  chassis.set_tank(0,0); // Stop the tank drive
+
+  wings.set_value(false); // Deactivate the wings
+
+  // The following lines are similar to the above, but with different targets and speeds for the PID controllers
   chassis.set_drive_pid(-35, DRIVE_SPEED, false);
   chassis.wait_drive();
   chassis.set_turn_pid(45, TURN_SPEED);
@@ -153,10 +164,12 @@ void auton_skills() {
   chassis.wait_drive();
   chassis.set_swing_pid(LEFT_SWING, 180, SWING_SPEED);
   chassis.wait_drive();
-  wings.set_value(true);
-  chassis.set_mode(ez::DISABLE);
-  chassis.set_tank(127, 127);
-  pros::delay(4500);
+
+  wings.set_value(true); // Activate the wings
+
+  chassis.set_mode(ez::DISABLE); // Disable the chassis's control mode
+  chassis.set_tank(127, 127); // Set the tank drive's left and right speeds to 127
+  pros::delay(4500); // Wait for 4500 milliseconds
 
 }
 
