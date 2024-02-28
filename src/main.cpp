@@ -5,14 +5,14 @@
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {12, 13, 14}
+  {12, 13}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{-19, -18, -17}
+  ,{-19, -18}
 
   // IMU Port
-  ,19
+  ,5
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
   //    (or tracking wheel diameter)
@@ -57,7 +57,7 @@ void initialize() {
   // Print our branding over your terminal :D
   ez::print_ez_template();
   
-  pros::delay(500); // Stop the user from doing anything while legacy ports configure.
+  pros::delay(100); // Stop the user from doing anything while legacy ports configure.
 
   // Configure your chassis controls
   chassis.toggle_modify_curve_with_controller(true); // Enables modifying the controller curve with buttons on the joysticks
@@ -72,8 +72,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
-    Auton("Example Turn\n\nTurn 3 times.", drive_example),
     Auton("Example Drive\n\nDrive forward and come back.", auton_skills),
+    Auton("Example Turn\n\nTurn 3 times.", drive_example),
     Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
     Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
     Auton("Swing Example\n\nSwing, drive, swing.", swing_example),
@@ -109,6 +109,7 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
+  
   // . . .
 }
 
@@ -155,7 +156,7 @@ bool latch1 = false;
 bool toggle2 = false;
 bool latch2 = false;
 bool intakeSpin = false;
-bool wing_toggle = true;
+bool wing_toggle = false;
 bool wing2_toggle = true;
 bool drive_inverse = false;
 
@@ -239,14 +240,13 @@ void opcontrol() {
       wings.set_value(false);
       pneumatic_value++;
     }*/
-    if (master.get_digital_new_press(DIGITAL_R2)) {
+    if (master.get_digital_new_press(DIGITAL_A)) {
       // Inverts the wings state. e.g. if currently true this will invert it to false.
       wing_toggle = !wing_toggle;
       wings.set_value(wing_toggle);
-    }
+    
 
-    if (master.get_digital_new_press(DIGITAL_Y)) {
-      // Inverts the wings state. e.g. if currently true this will invert it to false.
+    
       wing2_toggle = !wing2_toggle;
       wings2.set_value(wing2_toggle);
     }

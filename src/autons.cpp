@@ -88,6 +88,10 @@ void drive_example() {
 void auton_skills() {
   // The first parameter is target degrees
   // The second parameter is max speed the robot will drive at
+
+  //shit thats off
+
+  
   chassis.set_drive_pid(18, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive(); // Wait for the drive PID controller to reach its target
 
@@ -98,9 +102,9 @@ void auton_skills() {
 
   chassis.set_max_speed(0); // Set the maximum speed of the chassis to 0
 
-  Slapper.move_velocity(200); // Set the Slapper's velocity to 200
-  Slapper2.move_velocity(200); // Set the Slapper2's velocity to 200
-  pros::delay(27000); // Wait for 27000 milliseconds
+  // Slapper.move_velocity(200); // Set the Slapper's velocity to 200
+  // Slapper2.move_velocity(-200); // Set the Slapper2's velocity to 200
+  // pros::delay(1000); // Wait for 27000 milliseconds
 
   // while (true) { // Start an infinite loop
   //   if (limitSwitch.get_value()) // If the limit switch is pressed
@@ -169,6 +173,8 @@ void auton_skills() {
   chassis.set_mode(ez::DISABLE); // Disable the chassis's control mode
   chassis.set_tank(127, 127); // Set the tank drive's left and right speeds to 127
   pros::delay(4500); // Wait for 4500 milliseconds
+
+
 
 }
 
