@@ -5,11 +5,13 @@
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {12, 13}
+  {19, 18}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{-19, -18}
+  ,
+
+  {-12, -13}
 
   // IMU Port
   ,5
@@ -72,7 +74,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
-    Auton("Example Drive\n\nDrive forward and come back.", auton_skills),
+    Auton("Example Drive\n\nDrive forward and come back.", inch10dick),
     Auton("Example Turn\n\nTurn 3 times.", drive_example),
     Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
     Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
@@ -131,6 +133,10 @@ void autonomous() {
   chassis.reset_gyro(); // Reset gyro position to 0
   chassis.reset_drive_sensor(); // Reset drive sensors to 0
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps autonomous consistency.
+  
+  //this makes the whole thing backwards chat
+  //---------------------------------------
+  //chassis.setReversed(true);
 
   ez::as::auton_selector.call_selected_auton(); // Calls selected auton from autonomous selector.
 }
