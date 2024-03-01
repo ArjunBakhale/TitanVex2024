@@ -26,8 +26,12 @@ void default_constants() {
   chassis.set_slew_min_power(80, 80);
   chassis.set_slew_distance(7, 7);
   chassis.set_pid_constants(&chassis.headingPID, 8, 0, 20, 0);
-  chassis.set_pid_constants(&chassis.forward_drivePID, 2.5, 0.5, 5, 0);
-  chassis.set_pid_constants(&chassis.backward_drivePID, 2.5, 0.5, 5, 0);
+  /*chassis.set_pid_constants(&chassis.forward_drivePID, 2.5, 0.5, 5, 0);
+  chassis.set_pid_constants(&chassis.backward_drivePID, 2.5, 0.5, 5, 0);*/
+
+  chassis.set_pid_constants(&chassis.forward_drivePID, 0.35, 0, 5, 0);
+  chassis.set_pid_constants(&chassis.backward_drivePID, 0.35, 0, 5, 0);
+
   chassis.set_pid_constants(&chassis.turnPID, 7.5, 0.001, 79, 15);
   //chassis.set_pid_constants(&chassis.swingPID, 9, 0.002, 79, 15);
   chassis.set_pid_constants(&chassis.swingPID, 5, 0.002, 79, 15);
@@ -79,10 +83,23 @@ void drive_example() {
 
 }
 
+void closegame(){
+  chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive(); // Wait for the drive PID controller to reach its target
+  chassis.set_turn_pid(-45, TURN_SPEED);
+  chassis.wait_drive(); // Wait for the drive PID controller to reach its target
+  chassis.set_drive_pid(-45, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive();
+  chassis.set_drive_pid(10, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive();
+  chassis.set_drive_pid(-10, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive();
+
+}
 
 void inch10dick() {
-  chassis.set_swing_pid(RIGHT_SWING, 90, SWING_SPEED);
-  chassis.wait_drive();
+  //chassis.set_swing_pid(RIGHT_SWING, 90, SWING_SPEED);
+  chassis.set_drive_pid(22, DRIVE_SPEED, true);
 }
 ///
 //slaves should die!!! ong
@@ -103,12 +120,12 @@ void auton_skills() {
 
   wings.set_value(true); // Activate the wings
 
-  chassis.set_max_speed(0); // Set the maximum speed of the chassis to 0
+  //chassis.set_max_speed(0); // Set the maximum speed of the chassis to 0
 
-  Slapper.move_velocity(200); // Set the Slapper's velocity to 200
-  Slapper2.move_velocity(-200); // Set the Slapper2's velocity to 200
-  pros::delay(1000); // Wait for 27000 milliseconds
-
+  //Slapper.move_velocity(200); // Set the Slapper's velocity to 200
+  //Slapper2.move_velocity(-200); // Set the Slapper2's velocity to 200
+  //pros::delay(1000); // Wait for 27000 milliseconds
+/*
   while (true) { // Start an infinite loop
     if (limitSwitch.get_value()) // If the limit switch is pressed
     {
@@ -117,7 +134,7 @@ void auton_skills() {
       break; // Exit the loop
     }
   }
-
+*/
   wings.set_value(false); // Deactivate the wings
   pros::delay(500); // Wait for 500 milliseconds
 

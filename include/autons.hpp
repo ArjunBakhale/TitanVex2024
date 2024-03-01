@@ -12,6 +12,7 @@ void swing_example();
 void combining_movements();
 void inch10dick();
 void interfered_example();
+void closegame();
 
 void default_constants();
 void one_mogo_constants();

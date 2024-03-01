@@ -5,16 +5,14 @@
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {19, 18}
+  {19, 18, 6} //LEFT PORTR NUM GOES AFDTER COMMAN
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,
-
-  {-12, -13}
+  ,{-12, -13, -5}
 
   // IMU Port
-  ,5
+  ,15
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
   //    (or tracking wheel diameter)
@@ -74,7 +72,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
-    Auton("Example Drive\n\nDrive forward and come back.", inch10dick),
+    //choices: auton_skills inch10dick closegame     .
+    Auton("Example Drive\n\nDrive forward and come back.", closegame),
     Auton("Example Turn\n\nTurn 3 times.", drive_example),
     Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
     Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
@@ -203,8 +202,8 @@ void opcontrol() {
     }*/
     
     if (toggle2) {
-      Slapper.move_velocity(200);
-      Slapper2.move_velocity(-200);
+      Slapper.move_velocity(110);
+      Slapper2.move_velocity(-110);
     }
     else 
     {
