@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "slowwwwww",
+    "project_name": "autonshouldwork",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -331,7 +331,7 @@
       }
     },
     "upload_options": {
-      "slot": 5
+      "slot": 1
     }
   }
 }

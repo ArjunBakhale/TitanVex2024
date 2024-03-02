@@ -82,19 +82,127 @@ void drive_example() {
 
 
 }
+void awayautonplease(){
+  
+
+
+
+}
 
 void closegame(){
-  chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
-  chassis.wait_drive(); // Wait for the drive PID controller to reach its target
-  chassis.set_turn_pid(-45, TURN_SPEED);
-  chassis.wait_drive(); // Wait for the drive PID controller to reach its target
+
+  wings.set_value(true);
+  chassis.set_drive_pid(18, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive(); 
+  wings.set_value(false);
+
+  
+  chassis.set_drive_pid(18, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive(); 
+
+  chassis.set_swing_pid(LEFT_SWING, -35, SWING_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-57, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive();
+
+  /*
+  chassis.set_drive_pid(-5, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive();
+
+  wings.set_value(true); // Activate the wings
+  chassis.wait_drive(); 
+  wings.set_value(true); // Activate the wings
+  chassis.set_swing_pid(LEFT_SWING, -35, SWING_SPEED);
+  chassis.wait_drive(); 
+  wings.set_value(false);
+  chassis.wait_drive(); 
+  wings.set_value(false);
+
+  chassis.set_drive_pid(-57, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive(); 
+  */
+}
+void fargame(){
+  
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+
+chassis.set_swing_pid(LEFT_SWING, -30, SWING_SPEED);
+chassis.wait_drive(); 
+
+chassis.set_drive_pid(-30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+
+chassis.set_swing_pid(LEFT_SWING, -25, SWING_SPEED);
+chassis.wait_drive(); 
+
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+
+chassis.set_drive_pid(10, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+
+chassis.set_drive_pid(10, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+
+chassis.set_drive_pid(12, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+
+chassis.set_drive_pid(15, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive();
+
+wings.set_value(true); // Activate the wings
+
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+chassis.set_drive_pid(15, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+
+chassis.wait_drive(); 
+chassis.set_swing_pid(LEFT_SWING, 10, SWING_SPEED);
+
+chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+chassis.wait_drive(); 
+chassis.set_drive_pid(15, DRIVE_SPEED, false);
+
+
+
+  /*//wings.set_value(true);
+  chassis.set_drive_pid(-11, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.wait_drive();
+
+  pros::delay(500); // Wait for 1500 millisecond// Wait for the drive PID controller to reach its target
+  chassis.wait_drive(); 
+
+  chassis.set_turn_pid(-52.5, TURN_SPEED);
+  chassis.wait_drive(); 
+
+  pros::delay(500);
+  wings.set_value(true);
+
+  // Wait for the drive PID controller to reach its target
   chassis.set_drive_pid(-45, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive();
   chassis.set_drive_pid(10, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive();
-  chassis.set_drive_pid(-10, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive();
-
+  chassis.set_drive_pid(25,DRIVE_SPEED, false);
+  chassis.wait_drive();
+  wings.set_value(true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(10, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(-30, DRIVE_SPEED, false);
+  chassis.wait_drive();
+  chassis.set_drive_pid(20, DRIVE_SPEED, false);
+  */
 }
 
 void inch10dick() {
