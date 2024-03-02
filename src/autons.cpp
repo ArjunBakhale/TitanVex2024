@@ -92,18 +92,18 @@ void awayautonplease(){
 void closegame(){
 
   wings.set_value(true);
-  chassis.set_drive_pid(18, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.set_drive_pid(30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive(); 
   wings.set_value(false);
 
   
-  chassis.set_drive_pid(18, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.set_drive_pid(-30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive(); 
 
-  chassis.set_swing_pid(LEFT_SWING, -35, SWING_SPEED);
+  chassis.set_swing_pid(RIGHT_SWING, -35, SWING_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-57, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.set_drive_pid(-, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive();
 
   /*
