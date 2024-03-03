@@ -92,13 +92,16 @@ void awayautonplease(){
 void closegame(){
 
   wings.set_value(true);
+  wings2.set_value(false);
+
+
   chassis.set_drive_pid(-30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive(); 
-    wings.set_value(false);
+  wings.set_value(false);
+  wings2.set_value(true);
 
   
   chassis.set_drive_pid(30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
-      wings.set_value(false);
 
   chassis.wait_drive(); 
     wings.set_value(false);
@@ -109,8 +112,17 @@ void closegame(){
   chassis.set_swing_pid(RIGHT_SWING, -25, SWING_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(45, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+  chassis.set_drive_pid(15, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive();
+
+  chassis.set_turn_pid(140, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-16, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
+
+
+
+
 
   /*
   chassis.set_drive_pid(-5, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
@@ -213,7 +225,13 @@ chassis.set_drive_pid(15, DRIVE_SPEED, false);
 
 void inch10dick() {
   //chassis.set_swing_pid(RIGHT_SWING, 90, SWING_SPEED);
-  chassis.set_drive_pid(22, DRIVE_SPEED, true);
+  wings.set_value(false);
+  wings2.set_value(true);
+  pros::delay(200); // Wait for 500 milliseconds
+
+  wings.set_value(true);
+  wings2.set_value(false);
+
 }
 ///
 //slaves should die!!! ong
