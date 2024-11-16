@@ -3,15 +3,18 @@
 
 // Chassis constructor
 Drive chassis (
+  //TODO: Add the left ports
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
   {19, 18, 6} //LEFT PORTR NUM GOES AFDTER COMMAN
 
+  //TODO: Add the right ports
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
   ,{-12, -13, -5}
 
   // IMU Port
+  // TODO: Add the IMU port
   ,15
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
@@ -30,6 +33,7 @@ Drive chassis (
 
 
   // Uncomment if using tracking wheels
+  
   /*
   // Left Tracking Wheel Ports (negative port will reverse it!)
   // ,{1, 2} // 3 wire encoder

@@ -234,7 +234,6 @@ void inch10dick() {
 
 }
 ///
-//slaves should die!!! ong
 // Turn Example
 ///
 void auton_skills() {
