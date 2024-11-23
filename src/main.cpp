@@ -6,12 +6,12 @@ Drive chassis (
   //TODO: Add the left ports
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {19, 18, 6} //LEFT PORTR NUM GOES AFDTER COMMAN
+  {8, 9, 10} //LEFT PORTR NUM GOES AFDTER COMMAN
 
   //TODO: Add the right ports
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{-12, -13, -5}
+  ,{-1, -2, -3}
 
   // IMU Port
   // TODO: Add the IMU port
@@ -183,15 +183,15 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
-    if ((master.get_digital(DIGITAL_R1))) {
-      Intake.move_velocity(200);
-    }
-    else if (master.get_digital(DIGITAL_R2)) {
-      Intake.move_velocity(-200);
-    }
-    else {
-      Intake.move_velocity(0);
-    }
+    // if ((master.get_digital(DIGITAL_R1))) {
+    //   Intake.move_velocity(200);
+    // }
+    // else if (master.get_digital(DIGITAL_R2)) {
+    //   Intake.move_velocity(-200);
+    // }
+    // else {
+    //   Intake.move_velocity(0);
+    // }
 
     /*if (master.get_digital(DIGITAL_L2)) {
       if (!latch1)
@@ -205,63 +205,63 @@ void opcontrol() {
       latch1 = false;
     }*/
     
-    if (toggle2) {
-      Slapper.move_velocity(110);
-      Slapper2.move_velocity(-110);
-    }
-    else 
-    {
-      Slapper.move_velocity(0);
-      Slapper2.move_velocity(0);
-    }
+    // if (toggle2) {
+    //   Slapper.move_velocity(110);
+    //   Slapper2.move_velocity(-110);
+    // }
+    // else 
+    // {
+    //   Slapper.move_velocity(0);
+    //   Slapper2.move_velocity(0);
+    // }
 
-    if (master.get_digital_new_press(DIGITAL_DOWN)){
-      drive_inverse = !drive_inverse;
-      //chassis.set_drive_inverse(drive_inverse);
-    }
+    // if (master.get_digital_new_press(DIGITAL_DOWN)){
+    //   drive_inverse = !drive_inverse;
+    //   //chassis.set_drive_inverse(drive_inverse);
+    // }
 
-    if (master.get_digital(DIGITAL_UP)) {
-      if (!latch2)
-      {
-        toggle2 = !toggle2;
-        latch2 = true;
-      }
-    }
-    else
-    {
-      latch2 = false;
-    }
-    /*if (master.get_digital(DIGITAL_B))
-    {
-      wings.set_value(true);
-    }
-    if (master.get_digital(DIGITAL_A))
-    {
-      wings.set_value(false);
-    }*/
-    /*bool isPressed = master.get_digital_new_press(DIGITAL_A);
+    // if (master.get_digital(DIGITAL_UP)) {
+    //   if (!latch2)
+    //   {
+    //     toggle2 = !toggle2;
+    //     latch2 = true;
+    //   }
+    // }
+    // else
+    // {
+    //   latch2 = false;
+    // }
+    // /*if (master.get_digital(DIGITAL_B))
+    // {
+    //   wings.set_value(true);
+    // }
+    // if (master.get_digital(DIGITAL_A))
+    // {
+    //   wings.set_value(false);
+    // }*/
+    // /*bool isPressed = master.get_digital_new_press(DIGITAL_A);
 
-    if (isPressed && pneumatic_value % 2 == 0) {
-      wings.set_value(true);
-      pneumatic_value++;
-    }s
-    else if(isPressed && pneumatic_value % 2 == 1){
-      wings.set_value(false);
-      pneumatic_value++;
-    }*/
-    if (master.get_digital_new_press(DIGITAL_A)) {
-      // Inverts the wings state. e.g. if currently true this will invert it to false.
-      wing_toggle = !wing_toggle;
-      wings.set_value(wing_toggle);
+    // if (isPressed && pneumatic_value % 2 == 0) {
+    //   wings.set_value(true);
+    //   pneumatic_value++;
+    // }s
+    // else if(isPressed && pneumatic_value % 2 == 1){
+    //   wings.set_value(false);
+    //   pneumatic_value++;
+    // }*/
+    // if (master.get_digital_new_press(DIGITAL_A)) {
+    //   // Inverts the wings state. e.g. if currently true this will invert it to false.
+    //   wing_toggle = !wing_toggle;
+    //   wings.set_value(wing_toggle);
     
 
     
-      wing2_toggle = !wing2_toggle;
-      wings2.set_value(wing2_toggle);
-    }
+    //   wing2_toggle = !wing2_toggle;
+    //   wings2.set_value(wing2_toggle);
+    // }
 
 
-    pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+    // pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
 

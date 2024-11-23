@@ -91,23 +91,23 @@ void awayautonplease(){
 
 void closegame(){
 
-  wings.set_value(true);
-  wings2.set_value(false);
+  // wings.set_value(true);
+  // wings2.set_value(false);
 
 
   chassis.set_drive_pid(-30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
   chassis.wait_drive(); 
-  wings.set_value(false);
-  wings2.set_value(true);
+  // wings.set_value(false);
+  // wings2.set_value(true);
 
   
   chassis.set_drive_pid(30, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
 
-  chassis.wait_drive(); 
-    wings.set_value(false);
+  // chassis.wait_drive(); 
+  //   wings.set_value(false);
 
-  chassis.wait_drive(); 
-    wings.set_value(false);
+  // chassis.wait_drive(); 
+  //   wings.set_value(false);
 
   chassis.set_swing_pid(RIGHT_SWING, -25, SWING_SPEED);
   chassis.wait_drive();
@@ -176,7 +176,7 @@ chassis.wait_drive();
 chassis.set_drive_pid(15, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
 chassis.wait_drive();
 
-wings.set_value(true); // Activate the wings
+// wings.set_value(true); // Activate the wings
 
 chassis.set_drive_pid(-20, DRIVE_SPEED, false); // Set the drive PID controller's target to 18 units at DRIVE_SPEED, without resetting the controller
 chassis.wait_drive(); 
@@ -225,17 +225,15 @@ chassis.set_drive_pid(15, DRIVE_SPEED, false);
 
 void inch10dick() {
   //chassis.set_swing_pid(RIGHT_SWING, 90, SWING_SPEED);
-  wings.set_value(false);
-  wings2.set_value(true);
-  pros::delay(200); // Wait for 500 milliseconds
+  // wings.set_value(false);
+  // wings2.set_value(true);
+  // pros::delay(200); // Wait for 500 milliseconds
 
-  wings.set_value(true);
-  wings2.set_value(false);
+  // wings.set_value(true);
+  // wings2.set_value(false);
 
 }
-///
-// Turn Example
-///
+
 void auton_skills() {
   // The first parameter is target degrees
   // The second parameter is max speed the robot will drive at
@@ -249,7 +247,7 @@ void auton_skills() {
   chassis.set_turn_pid(-60, TURN_SPEED); // Set the turn PID controller's target to -60 degrees at TURN_SPEED
   chassis.wait_drive(); // Wait for the turn PID controller to reach its target
 
-  wings.set_value(true); // Activate the wings
+  // wings.set_value(true); // Activate the wings
 
   //chassis.set_max_speed(0); // Set the maximum speed of the chassis to 0
 
@@ -266,7 +264,7 @@ void auton_skills() {
     }
   }
 */
-  wings.set_value(false); // Deactivate the wings
+  // wings.set_value(false); // Deactivate the wings
   pros::delay(500); // Wait for 500 milliseconds
 
   // The following lines are similar to the above, but with different targets and speeds for the PID controllers
@@ -300,14 +298,14 @@ void auton_skills() {
   chassis.set_swing_pid(LEFT_SWING, 128, SWING_SPEED);
   chassis.wait_drive();
 
-  wings.set_value(true); // Activate the wings
+  // wings.set_value(true); // Activate the wings
 
   chassis.set_mode(ez::DISABLE); // Disable the chassis's control mode
   chassis.set_tank(127, 127); // Set the tank drive's left and right speeds to 127
   pros::delay(3500); // Wait for 3500 milliseconds
   chassis.set_tank(0,0); // Stop the tank drive
 
-  wings.set_value(false); // Deactivate the wings
+  // wings.set_value(false); // Deactivate the wings
 
   // The following lines are similar to the above, but with different targets and speeds for the PID controllers
   chassis.set_drive_pid(-35, DRIVE_SPEED, false);
@@ -319,7 +317,7 @@ void auton_skills() {
   chassis.set_swing_pid(LEFT_SWING, 180, SWING_SPEED);
   chassis.wait_drive();
 
-  wings.set_value(true); // Activate the wings
+  // wings.set_value(true); // Activate the wings
 
   chassis.set_mode(ez::DISABLE); // Disable the chassis's control mode
   chassis.set_tank(127, 127); // Set the tank drive's left and right speeds to 127
@@ -329,11 +327,6 @@ void auton_skills() {
 
 }
 
-
-
-///
-// Combining Turn + Drive
-///
 void drive_and_turn() {
   chassis.set_drive_pid(24, DRIVE_SPEED, true);
   chassis.wait_drive();
@@ -351,11 +344,6 @@ void drive_and_turn() {
   chassis.wait_drive();
 }
 
-
-
-///
-// Wait Until and Changing Max Speed
-///
 void wait_until_change_speed() {
   // wait_until will wait until the robot gets to a desired position
 
@@ -383,10 +371,6 @@ void wait_until_change_speed() {
 }
 
 
-
-///
-// Swing Example
-///
 void swing_example() {
   // The first parameter is ez::LEFT_SWING or ez::RIGHT_SWING
   // The second parameter is target degrees
@@ -403,11 +387,6 @@ void swing_example() {
   chassis.wait_drive();
 }
 
-
-
-///
-// Auto that tests everything
-///
 void combining_movements() {
   chassis.set_drive_pid(24, DRIVE_SPEED, true);
   chassis.wait_drive();
@@ -427,9 +406,7 @@ void combining_movements() {
 
 
 
-///
-// Interference example
-///
+
 void tug (int attempts) {
   for (int i=0; i<attempts-1; i++) {
     // Attempt to drive backwards
@@ -450,8 +427,6 @@ void tug (int attempts) {
   }
 }
 
-// If there is no interference, robot will drive forward and turn 90 degrees. 
-// If interfered, robot will drive forward and then attempt to drive backwards. 
 void interfered_example() {
  chassis.set_drive_pid(24, DRIVE_SPEED, true);
  chassis.wait_drive();
