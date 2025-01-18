@@ -46,7 +46,12 @@
 // More includes here...
 #include "autons.hpp"
 #include "globals.hpp"
-
+#include "pros/apix.h"
+#include "pros/adi.h"
+#include "pros/motors.h"
+#include "pros/rtos.h"
+#include "pros/vision.h"
+#include "pros/llemu.h"
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
  * Motor, you can use the namespace with the following commented out line.
@@ -86,3 +91,5 @@ void opcontrol(void);
 #endif
 
 #endif  // _PROS_MAIN_H_
+
+

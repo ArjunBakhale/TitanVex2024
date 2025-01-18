@@ -6,16 +6,16 @@ Drive chassis (
   //TODO: Add the left ports
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {8, 9, 10} //LEFT PORTR NUM GOES AFDTER COMMAN
+  {1, 11, 12} //LEFT PORTR NUM GOES AFDTER COMMAN
 
   //TODO: Add the right ports
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{-1, -2, -3}
+  ,{-9, -19, -20}
 
   // IMU Port
   // TODO: Add the IMU port
-  ,15
+  ,10
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
   //    (or tracking wheel diameter)
@@ -165,9 +165,12 @@ bool latch1 = false;
 bool toggle2 = false;
 bool latch2 = false;
 bool intakeSpin = false;
-bool wing_toggle = false;
-bool wing2_toggle = true;
+bool intake_toggle = false;
+
 bool drive_inverse = false;
+
+bool clamp_toggle = false;
+
 
 void opcontrol() {
   // This is preference to what you like to drive on.
@@ -175,6 +178,11 @@ void opcontrol() {
   while (true) {
 
     chassis.tank(); // Tank control
+
+    if (master.get_digital_new_press(DIGITAL_A)) {
+      clamp_toggle = !clamp_toggle;
+      clampPiston.set_value(clamp_toggle);
+    }
     // chassis.arcade_standard(ez::SPLIT); // Standard split arcade
     // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
     // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
@@ -183,16 +191,18 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
-    // if ((master.get_digital(DIGITAL_R1))) {
-    //   Intake.move_velocity(200);
-    // }
-    // else if (master.get_digital(DIGITAL_R2)) {
-    //   Intake.move_velocity(-200);
-    // }
-    // else {
-    //   Intake.move_velocity(0);
-    // }
+    if (master.get_digital_new_press(DIGITAL_R1)) {
+      intake_toggle = !intake_toggle;
+    }
 
+    // if (master.get_digital(DIGITAL_R2)) {
+    //     Intake.move_velocity(-200);  // Reverse
+    // } 
+    if (intake_toggle) {
+        Intake.move_velocity(-200);   // Forward (Negative intakes inwards)
+    } else {
+        Intake.move_velocity(0);     // Stop
+    }
     /*if (master.get_digital(DIGITAL_L2)) {
       if (!latch1)
       {

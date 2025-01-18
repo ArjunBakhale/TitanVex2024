@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "FinalTitan2024",
+    "project_name": "VexBolts 2025",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -331,7 +331,9 @@
       }
     },
     "upload_options": {
-      "slot": 1
+      "slot": 1,
+      "icon": "pizza",
+      "description": "Over and Under "
     }
   }
 }
