@@ -171,6 +171,8 @@ bool drive_inverse = false;
 
 bool clamp_toggle = false;
 
+bool steak_arm_toggle = false;
+
 void opcontrol() {
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
@@ -182,6 +184,12 @@ void opcontrol() {
       clamp_toggle = !clamp_toggle;
       clampPiston.set_value(clamp_toggle);
     }
+
+    if (master.get_digital_new_press(DIGITAL_Y)) {
+      steak_arm_toggle = !steak_arm_toggle;
+      steakArmPiston.set_value(steak_arm_toggle);
+    }
+
     // chassis.arcade_standard(ez::SPLIT); // Standard split arcade
     // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
     // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
@@ -207,14 +215,23 @@ void opcontrol() {
 
 
 
-    if(master.get_digital_new_press(DIGITAL_LEFT)){
-      LadyBrown.move_absolute(30, 50);
-      pros::delay(1000);
-      LadyBrown.move_absolute(0, 50);
-
-    }
+// Replace existing if statement with:
+if(master.get_digital(DIGITAL_LEFT)) {
+    // Move up while held
+    LadyBrown.move_velocity(200);  // 8V for up movement
+} 
+else if(master.get_digital(DIGITAL_RIGHT)) {
+    // Move down while held
+    LadyBrown.move_velocity(-200); // 5V for down movement
+}
+else {
+    // Hold position when no input
+    LadyBrown.move_voltage(0);
+    LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+}
 
     pros::delay(20);
+
     /*if (master.get_digital(DIGITAL_L2)) {
       if (!latch1)
       {
