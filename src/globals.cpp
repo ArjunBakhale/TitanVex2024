@@ -7,3 +7,5 @@ pros::Motor Intake(15, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DE
 // pros::ADIButton limitSwitch('B');
 pros::ADIDigitalOut clampPiston ('H');
 
+pros::Motor LadyBrown(13, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
+

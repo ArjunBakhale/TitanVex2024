@@ -171,7 +171,6 @@ bool drive_inverse = false;
 
 bool clamp_toggle = false;
 
-
 void opcontrol() {
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
@@ -203,6 +202,15 @@ void opcontrol() {
     } else {
         Intake.move_velocity(0);     // Stop
     }
+
+    if(master.get_digital_newPress(DIGITAL_LEFT)){
+      LadyBrown.move_absolute(30, 50);
+      pros::delay(1000);
+      LadyBrown.move_absolute(0, 50);
+
+    }
+
+    pros::delay(20);
     /*if (master.get_digital(DIGITAL_L2)) {
       if (!latch1)
       {
