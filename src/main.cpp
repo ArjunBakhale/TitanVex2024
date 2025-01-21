@@ -203,6 +203,7 @@ void opcontrol() {
         Intake.move_velocity(0);     // Stop
     }
 
+
     if(master.get_digital_newPress(DIGITAL_LEFT)){
       LadyBrown.move_absolute(30, 50);
       pros::delay(1000);
