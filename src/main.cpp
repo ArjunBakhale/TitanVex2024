@@ -198,13 +198,16 @@ void opcontrol() {
     //     Intake.move_velocity(-200);  // Reverse
     // } 
     if (intake_toggle) {
-        Intake.move_velocity(-200);   // Forward (Negative intakes inwards)
-    } else {
-        Intake.move_velocity(0);     // Stop
-    }
+    	Intake.move_velocity(-200);   // Forward (Negative intakes inwards)
+    	IntakeLow.move_velocity(200);
+	  } else {
+    	Intake.move_velocity(0); 	// Stop
+    	IntakeLow.move_velocity(0);
+	  }
 
 
-    if(master.get_digital_newPress(DIGITAL_LEFT)){
+
+    if(master.get_digital_new_press(DIGITAL_LEFT)){
       LadyBrown.move_absolute(30, 50);
       pros::delay(1000);
       LadyBrown.move_absolute(0, 50);
