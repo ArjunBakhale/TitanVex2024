@@ -215,20 +215,20 @@ void opcontrol() {
 
 
 
-// Replace existing if statement with:
-if(master.get_digital(DIGITAL_LEFT)) {
-    // Move up while held
-    LadyBrown.move_velocity(200);  // 8V for up movement
-} 
-else if(master.get_digital(DIGITAL_RIGHT)) {
-    // Move down while held
-    LadyBrown.move_velocity(-200); // 5V for down movement
-}
-else {
-    // Hold position when no input
-    LadyBrown.move_voltage(0);
-    LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-}
+    // Replace existing if statement with:
+    if(master.get_digital(DIGITAL_LEFT)) {
+        // Move up while held
+        LadyBrown.move_velocity(200);  // 8V for up movement
+    } 
+    else if(master.get_digital(DIGITAL_RIGHT)) {
+        // Move down while held
+        LadyBrown.move_velocity(-200); // 5V for down movement
+    }
+    else {
+        // Hold position when no input
+        LadyBrown.move_voltage(0);
+        LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    }
 
     pros::delay(20);
 
