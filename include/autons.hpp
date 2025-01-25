@@ -4,6 +4,8 @@
 
 extern Drive chassis;
 
+void pid_tune();
+
 void drive_example();
 void auton_skills();
 void drive_and_turn();
