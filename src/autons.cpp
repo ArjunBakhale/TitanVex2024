@@ -90,8 +90,8 @@ void pid_tune() {+
     chassis.set_drive_pid(-18, DRIVE_SPEED, true); //back 18
     chassis.wait_drive();
     Intake.move_velocity(-200); //start intake
-    //lay(20);
-    
+    pros::delay(2000);
+    chassis.wait_drive();
     chassis.set_drive_pid(18, DRIVE_SPEED, true); //forward 18
     chassis.wait_drive();
     chassis.set_turn_pid(45, TURN_SPEED); //turn left 45
