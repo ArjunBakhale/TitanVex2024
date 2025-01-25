@@ -7,7 +7,7 @@
 /////
 
 
-const int DRIVE_SPEED = 75; // This is 110/127 (around 87% of max speed).  We don't suggest making this 127.
+const int DRIVE_SPEED = 0.75*75; // This is 110/127 (around 87% of max speed).  We don't suggest making this 127.
                              // If this is 127 and the robot tries to heading correct, it's only correcting by
                              // making one side slower.  When this is 87%, it's correcting by making one side
                              // faster and one side slower, giving better heading correction.
@@ -44,8 +44,8 @@ void default_constants() {
   // chassis.set_pid_constants(&chassis.turnPID, 7.5, 0.001, 79, 15);
   // chassis.set_pid_constants(&chassis.swingPID, 5, 0.002, 79, 15);
 
-  chassis.set_pid_constants(&chassis.forward_drivePID, 0, 0, 10, 0);
-  //chassis.set_pid_constants(&chassis.backward_driverPID, 0, 0, 10, 0);
+  //chassis.set_pid_constants(&chassis.forward_drivePID,
+  //chassis.set_pid_constants(&chassis.backward_drivePID, 0, 0, 10, 0);
   //tuned
   chassis.set_pid_constants(&chassis.turnPID, 5, 0, 50, 15);
   chassis.set_pid_constants(&chassis.headingPID, 11, 0, 20, 0);
@@ -80,7 +80,7 @@ void default_constants() {
 //   chassis.set_exit_condition(chassis.drive_exit, 80, 50, 300, 150, 500, 500);
 // }
 
-void pid_tune() {+
+void wallAuton() {
 
     clampPiston.set_value(false);
     chassis.set_drive_pid(-24, DRIVE_SPEED, true); //back 24
@@ -90,8 +90,8 @@ void pid_tune() {+
     chassis.set_drive_pid(-18, DRIVE_SPEED, true); //back 18
     chassis.wait_drive();
     Intake.move_velocity(-200); //start intake
-    pros::delay(2000);
-    chassis.wait_drive();
+    pros::delay(1500); 
+    Intake.move_velocity(0);
     chassis.set_drive_pid(18, DRIVE_SPEED, true); //forward 18
     chassis.wait_drive();
     chassis.set_turn_pid(45, TURN_SPEED); //turn left 45
@@ -115,14 +115,15 @@ void pid_tune() {+
     chassis.wait_drive();
     chassis.set_drive_pid(24, DRIVE_SPEED, true); //forward 24
     chassis.wait_drive();
+}
 
-    // chassis.set_turn_pid(45, TURN_SPEED); //turn right 45
-    // chassis.wait_drive();
-    // chassis.set_drive_pid(24, DRIVE_SPEED, true); //forward 24
+void driveAuton() {
+  chassis.set_drive_pid(10, DRIVE_SPEED, true); //forward 10
+}
 
-  // chassis.set_turn_pid(90, TURN_SPEED);
-  // chassis.wait_drive();
+void pid_tune() {
 
-  // chassis.set_swing_pid(ez::RIGHT_SWING, 45, SWING_SPEED);
-  // chassis.wait_drive();
+  driveAuton();
+  wallAuton();
+
 }
