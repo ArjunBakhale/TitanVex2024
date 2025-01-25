@@ -44,7 +44,8 @@ void default_constants() {
   // chassis.set_pid_constants(&chassis.turnPID, 7.5, 0.001, 79, 15);
   // chassis.set_pid_constants(&chassis.swingPID, 5, 0.002, 79, 15);
 
-  chassis.set_pid_constants(&chassis.forward_drivePID, 15, 0, 5, 0);
+  chassis.set_pid_constants(&chassis.forward_drivePID, 200, 0, 0, 0);
+  chassis.set_pid_constants(&chassis.backward_drivePID, 200, 0, 0, 0);
   //tuned
   chassis.set_pid_constants(&chassis.turnPID, 5, 0, 50, 15);
   chassis.set_pid_constants(&chassis.headingPID, 11, 0, 20, 0);
