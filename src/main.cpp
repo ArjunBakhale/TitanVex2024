@@ -160,20 +160,40 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 
+void moveToAngle(const double targetAngle) {
+  // Simple loop that runs until the sensor gets close to the target
+  while (std::abs(rotSensor.get_angle() - targetAngle) > 10) {
+    if (rotSensor.get_angle() < targetAngle) {
+      rotationMotor.move_velocity(100);
+    } else {
+      rotationMotor.move_velocity(-100);
+    }
+    pros::delay(20);
+  }
+  rotationMotor.move_velocity(0); // stop
+}
+
 bool toggle1 = false;
 bool latch1 = false;
 bool toggle2 = false;
 bool latch2 = false;
 bool intakeSpin = false;
 bool intake_toggle = false;
-
 bool drive_inverse = false;
-
 bool clamp_toggle = false;
-
 bool steak_arm_toggle = false;
 
 void opcontrol() {
+  pros::Controller master(pros::E_CONTROLLER_MASTER);
+  while (true) {
+    if (master.get_digital_new_press(DIGITAL_UP)) {
+      moveToAngle(21300);
+    } 
+    else if (master.get_digital_new_press(DIGITAL_DOWN)) {
+      moveToAngle(0);
+    }
+    pros::delay(20);
+  }
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
   while (true) {

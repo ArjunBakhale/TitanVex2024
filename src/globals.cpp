@@ -1,6 +1,10 @@
 #include "main.h"
 // TODO: Update globals
 // pros::ADIDigitalOut wings ('G');
+pros::Rotation rotSensor(4); // Using port 2 for rotation sensor
+pros::Motor rotationMotor(2, pros::E_MOTOR_GEARSET_18); // Using port 3 with green cartridge (200RPM)
+
+
 pros::Motor Intake(15, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor IntakeLow(6, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
 
