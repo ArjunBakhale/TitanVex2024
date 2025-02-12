@@ -82,10 +82,30 @@ void default_constants() {
 //   chassis.set_exit_condition(chassis.swing_exit, 100, 3, 500, 7, 500, 500);
 //   chassis.set_exit_condition(chassis.drive_exit, 80, 50, 300, 150, 500, 500);
 // }
+void autoClamp(bool state){
+  clampPiston.set_value(state);
+}
+void autoIntake(bool toggle){
+  if (toggle){
+    intake_Conveyer.move_velocity(200);
+  }
+  else{
+    //Intake.move_velocity(0);
+    intake_Conveyer.move_velocity(0);
+  }
+}
 
 
-void pid_tune() {
+void match_auton() {
   chassis.set_drive_pid(60, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(90, TURN_SPEED);
+  chassis.wait_drive();
+  autoIntake(true);
+  chassis.wait_drive();
+  chassis.set_drive_pid(60, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(90, TURN_SPEED);
   chassis.wait_drive();
 
   // chassis.set_turn_pid(90, TURN_SPEED);
@@ -93,4 +113,8 @@ void pid_tune() {
 
   // chassis.set_swing_pid(ez::RIGHT_SWING, 45, SWING_SPEED);
   // chassis.wait_drive();
+}
+
+void skills_auton() {
+
 }

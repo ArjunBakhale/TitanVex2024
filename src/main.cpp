@@ -1,25 +1,24 @@
 #include "main.h"
-
-
+#include <iostream>
 // Chassis constructor
 Drive chassis (
   //TODO: Add the left ports
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {1, 11, 12} //LEFT PORTR NUM GOES AFDTER COMMAN
+  {15, 12, 13} //LEFT PORTR NUM GOES AFDTER COMMAN
 
   //TODO: Add the right ports
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{-9, -19, -20}
+  ,{-11, -14, -19}
 
   // IMU Port
   // TODO: Add the IMU port
-  ,10
+  ,21
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
-  //    (or tracking wheel diameter)
-  ,3.25
+  //    (or tracking wheel diameter
+  ,2.75
 
   // Cartridge RPM
   //   (or tick per rotation if using tracking wheels)
@@ -77,7 +76,11 @@ void initialize() {
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
     //choices: auton_skills inch10dick closegame     .
-    Auton("Example Drive\n\nDrive forward and come back.", pid_tune),
+
+    // 2025 Titan Autons
+    /*Auton("Match auton", match_auton),
+    Auton("Skills", auton_skills),*/
+
     // Auton("Example Turn\n\nTurn 3 times.", drive_example),
     // Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
     // Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
@@ -160,18 +163,100 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 
+//fully extended angle: 4.04 degrees
+//intake_ready angle: 214.8 degrees
+//rest angle: 264.78 degrees
+
+/*
 void moveToAngle(const double targetAngle) {
-  // Simple loop that runs until the sensor gets close to the target
-  while (std::abs(rotSensor.get_angle() - targetAngle) > 10) {
-    if (rotSensor.get_angle() < targetAngle) {
-      rotationMotor.move_velocity(100);
-    } else {
-      rotationMotor.move_velocity(-100);
+  const int THRESHOLD = 150; // Tighter threshold (1.5 degrees)
+  const int APPROACH_THRESHOLD = 250; // Start precise control within 2 degrees
+  const int FAST_VELOCITY = 15;
+  const int MIN_VELOCITY = 5; // Minimum velocity for precise control
+
+  while (true) {
+    double currentAngle = rotSensor.get_angle() * 100;
+    double error = targetAngle - currentAngle;
+
+    if (std::abs(error) <= THRESHOLD) {
+      rotationMotor.move_velocity(0);
+      rotationMotor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE); 
+      break;
     }
-    pros::delay(20);
+
+    // Calculate velocity based on error (proportional control)
+    int velocity = std::abs(error) <= APPROACH_THRESHOLD ? 
+      std::max(MIN_VELOCITY, (int)(std::abs(error) * 0.5)) : FAST_VELOCITY;
+
+    rotationMotor.move_velocity(error <  0 ? -velocity : velocity);
+    pros::delay(10); // Faster control loop
   }
-  rotationMotor.move_velocity(0); // stop
+  pros::delay(50);
+}*/
+
+/*
+void moveToAngle(const double targetAngle) {
+  const int THRESHOLD = 25;
+  const int APPROACH_THRESHOLD = 50; 
+  const int FAST_VELOCITY = 100;
+  const int MIN_VELOCITY = 25;
+
+  while (true) {
+    double currentAngle = rotSensor.get_angle();
+    double error = targetAngle - currentAngle;
+
+    if (std::abs(error) <= THRESHOLD) {
+      rotationMotor.move_velocity(0);
+      rotationMotor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE); // Use BRAKE mode to hold position
+      break;
+    }
+
+    int brown_velocity = std::abs(error) <= APPROACH_THRESHOLD ? 
+      std::max(MIN_VELOCITY, (int)(std::abs(error) * 0.5)) : FAST_VELOCITY;
+
+    // Inverted direction logic
+    if (error > 0) {
+      rotationMotor.move_velocity(-brown_velocity); // Move forward
+    } else {
+      rotationMotor.move_velocity(brown_velocity); // Move backward
+    }
+    
+    pros::delay(10);
+  }
+  pros::delay(50);
 }
+*/
+
+void moveToAngle(double targetAngle){
+  const int threshold = 250;
+  const int fastVelocity = 100;
+  const int slowVelocity = 100;
+  const int slowDistance = 50; // Distance to start slowing down
+
+  while (true) {
+    double currentAngle = rotSensor.get_angle();
+    double error = targetAngle - currentAngle;
+
+    if (std::abs(error) <= threshold) {
+      rotationMotor.move_velocity(0);
+      rotationMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // Use BRAKE mode to hold position
+      break;
+    }
+
+    int velocity = std::abs(error) <= slowDistance ? 
+      std::max(slowVelocity, (int)(std::abs(error) * 0.5)) : fastVelocity;
+
+    // Inverted direction logic
+    if (error > 0) {
+      rotationMotor.move_velocity(velocity); // Move forward
+    } else {
+      rotationMotor.move_velocity(-velocity); // Move backward
+    }
+    
+    pros::delay(10);
+  }
+}
+
 
 bool toggle1 = false;
 bool latch1 = false;
@@ -182,23 +267,55 @@ bool intake_toggle = false;
 bool drive_inverse = false;
 bool clamp_toggle = false;
 bool steak_arm_toggle = false;
+bool outake_toggle = false;
 
 void opcontrol() {
-  pros::Controller master(pros::E_CONTROLLER_MASTER);
-  while (true) {
-    if (master.get_digital_new_press(DIGITAL_UP)) {
-      moveToAngle(21300);
-    } 
-    else if (master.get_digital_new_press(DIGITAL_DOWN)) {
-      moveToAngle(0);
-    }
-    pros::delay(20);
-  }
+
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
   while (true) {
 
     chassis.tank(); // Tank control
+    /*
+      cout << rotSensor.get_angle();
+      cout << "\n ";
+    */
+    
+    
+    if (master.get_digital_new_press(DIGITAL_LEFT)) {
+      moveToAngle(1500);
+    } 
+
+    else if (master.get_digital_new_press(DIGITAL_UP)) {
+      moveToAngle(3300);
+    }
+    else if(master.get_digital_new_press(DIGITAL_RIGHT)){
+      moveToAngle(15000);
+    }
+    /*
+    else{
+      rotationMotor.move_velocity(0);
+      rotationMotor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE); // Hold position
+    }*/
+    
+
+   /*
+    if (master.get_digital_new_press(DIGITAL_LEFT)) {
+      rotationMotor.move_absolute(0, 15);
+    } 
+
+    else if (master.get_digital_new_press(DIGITAL_UP)) {
+      rotationMotor.move_absolute(65, 15);
+    }
+    else if(master.get_digital_new_press(DIGITAL_RIGHT)){
+      rotationMotor.move_absolute(115, 15);
+    }
+    else{
+      rotationMotor.move_velocity(0);
+      rotationMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // Hold position
+    }
+    */
+
 
     if (master.get_digital_new_press(DIGITAL_A)) {
       clamp_toggle = !clamp_toggle;
@@ -220,27 +337,47 @@ void opcontrol() {
     // . . .
     if (master.get_digital_new_press(DIGITAL_R1)) {
       intake_toggle = !intake_toggle;
+      outake_toggle = false;
     }
+    if(master.get_digital_new_press(DIGITAL_R2)){
+      outake_toggle = !outake_toggle;
+      intake_toggle = false;
+    }
+    
 
     // if (master.get_digital(DIGITAL_R2)) {
     //     Intake.move_velocity(-200);  // Reverse
     // } 
-    if (intake_toggle) {
-    	Intake.move_velocity(-200);   // Forward (Negative intakes inwards)
-    	IntakeLow.move_velocity(200);
-	  } else {
-    	Intake.move_velocity(0); 	// Stop
-    	IntakeLow.move_velocity(0);
-	  }
+    if (intake_toggle && !outake_toggle) {
+    	//Intake.move_velocity(-200);   // intake (Negative intakes inwards)
+    	intake_Conveyer.move_velocity(200);
+	  } else if (outake_toggle && !intake_toggle) {
+    	//Intake.move_velocity(200); 	// Outake (Positive outtakes outwards)
+    	intake_Conveyer.move_velocity(-200);
+    }
+      else {
+        //Intake.move_velocity(0);
+        intake_Conveyer.move_velocity(0);
+      }
 
 
+      /*
+    if(outake_toggle){
+      Intake.move_velocity(200);
+      intake_Conveyer.move_velocity(-200);
+    }
+    else if(!intake_toggle && !outake_toggle){
+      Intake.move_velocity(0);
+      intake_Conveyer.move_velocity(0);
+    }*/
 
+    //manual lady brown 
+    /*
     // Replace existing if statement with:
-    if(master.get_digital(DIGITAL_LEFT)) {
+    if(master.get_digital(DIGITAL_L1)) {
         // Move up while held
         LadyBrown.move_velocity(200);  // 8V for up movement
-    } 
-    else if(master.get_digital(DIGITAL_RIGHT)) {
+    }     else if(master.get_digital(DIGITAL_L2)) {
         // Move down while held
         LadyBrown.move_velocity(-200); // 5V for down movement
     }
@@ -249,6 +386,20 @@ void opcontrol() {
         LadyBrown.move_voltage(0);
         LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     }
+
+  */
+
+
+    // else if(master.get_digital(DIGITAL_RIGHT)) {
+    //     // Move down while held
+    //     LadyBrown.move_velocity(-200); // 5V for down movement
+    // }
+    /*
+    else {
+        // Hold position when no input
+        LadyBrown.move_voltage(0);
+        LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    }*/
 
     pros::delay(20);
 
@@ -321,6 +472,7 @@ void opcontrol() {
 
 
     // pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
-  }
-}
 
+  }
+
+}
