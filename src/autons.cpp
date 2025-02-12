@@ -95,6 +95,51 @@ void autoIntake(bool toggle){
   }
 }
 
+void moveToAngle(double targetAngle){
+  const int threshold = 250;
+  const int fastVelocity = 100;
+  const int slowVelocity = 100;
+  const int slowDistance = 50; // Distance to start slowing down
+
+  while (true) {
+    double currentAngle = rotSensor.get_angle();
+    double error = targetAngle - currentAngle;
+
+    if (std::abs(error) <= threshold) {
+      rotationMotor.move_velocity(0);
+      rotationMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // Use BRAKE mode to hold position
+      break;
+    }
+
+    int velocity = std::abs(error) <= slowDistance ? 
+      std::max(slowVelocity, (int)(std::abs(error) * 0.5)) : fastVelocity;
+
+    // Inverted direction logic
+    if (error > 0) {
+      rotationMotor.move_velocity(velocity); // Move forward
+    } else {
+      rotationMotor.move_velocity(-velocity); // Move backward
+    }
+    
+    pros::delay(10);
+  }
+}
+
+void brownDown(){
+  // Move down while held
+  moveToAngle(1500);
+}
+void brownSet(){
+  // Move down while held
+  moveToAngle(3300);
+}
+void brownUp(){
+  // Move down while held
+  moveToAngle(15000);
+}
+
+
+
 
 void match_auton() {
   chassis.set_drive_pid(60, DRIVE_SPEED, true);
