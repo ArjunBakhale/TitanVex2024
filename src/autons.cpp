@@ -95,7 +95,7 @@ void autoIntake(bool toggle){
   }
 }
 
-void moveToAngle(double targetAngle){
+void moveToAngle2(double targetAngle){
   const int threshold = 250;
   const int fastVelocity = 100;
   const int slowVelocity = 100;
@@ -127,15 +127,15 @@ void moveToAngle(double targetAngle){
 
 void brownDown(){
   // Move down while held
-  moveToAngle(1500);
+  moveToAngle2(1500);
 }
 void brownSet(){
   // Move down while held
-  moveToAngle(3300);
+  moveToAngle2(3300);
 }
 void brownUp(){
   // Move down while held
-  moveToAngle(15000);
+  moveToAngle2(15000);
 }
 
 
